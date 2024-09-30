@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tsk.Application.DTOs.ApplicatiionUserDto;
 using Tsk.Application.DTOs.UserCarDto;
 using Tsk.Application.Helpers.ResponseHandler;
 using Tsk.Application.Interfaces;
@@ -21,13 +22,13 @@ namespace Tsk.Application.Services
         }
         public async Task<Respons<string>> AssignCarToUserAsync(AssignCarToUserDto model)
         {
-            var user = await _unitOfWork.users.GetByExpressionSingleAsync(x => x.Id == model.ApplicationUserId);
-            if (user == null) return ResponseHandler.NotFound<string>("user not found");
+            var user = await _unitOfWork.users.GetByExpressionSingleAsync(x => x.IdentityNumber ==model.ApplicationUserId);
+            if (user == null) return ResponseHandler.NotFound<string>("User not found");
             var car = await _unitOfWork.cars.GetByExpressionSingleAsync(x => x.PlateNumber == model.CarBlateNumber);
             if (car == null) return ResponseHandler.NotFound<string>("Car not found");
             var userCar = new UserCar
             {
-                ApplicationUserID = model.ApplicationUserId,
+                ApplicationUserID = user.Id,
                 CarPlateNumber = model.CarBlateNumber,
                 AssignDate = model.AssignedDate,
                 LastMeterReading = model.LastMeterReading

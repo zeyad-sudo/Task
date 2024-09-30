@@ -49,6 +49,7 @@ namespace Tsk.Application.Services
         public async Task<Respons<CarDto>> GetCarByIdAsync(int carId)
         {
             var car = await _unitOfWork.cars.GetByExpressionSingleAsync(x => x.PlateNumber == carId /*,[x => x.ApplicationUser]*/);
+            if (car == null) return ResponseHandler.NotFound<CarDto>("Car not found");
             return ResponseHandler.Success(new CarDto
             {
                 PlateNumber = car.PlateNumber,
