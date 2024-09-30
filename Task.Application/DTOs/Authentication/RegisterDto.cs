@@ -12,6 +12,10 @@ namespace Tsk.Application.DTOs.Authentication
     {
         [Required, StringLength(14)]
         public string IdentityNumber { get; set; }
+        [Required, StringLength(50)]
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public string PhoneNumber { get; set; }
         [Required, StringLength(50), EmailAddress]
         public string Email { get; set; }
         [Required, StringLength(20)]

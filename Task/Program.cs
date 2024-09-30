@@ -23,7 +23,14 @@ namespace Tsk
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddCors(corsoption =>
+            {
+                corsoption.AddPolicy("MyPolicy", corspolicybuilder =>
+                {
+                    corspolicybuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                    //.withorigins(" domain");
+                });
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -32,9 +39,10 @@ namespace Tsk
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseCors("MyPolicy");
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

@@ -35,7 +35,7 @@ namespace Tsk.Application.Services
         public async Task<Respons<AuthDto>> GetTokenAsync(TokenRequestDto model)
         {
             var authmodel = new AuthDto();
-            var user = await _userManager.FindByNameAsync(model.IdentityNumber);
+            var user=await _unitOfWork.users.GetByExpressionSingleAsync(x=>x.IdentityNumber == model.IdentityNumber);
             if (user is null || (!await _userManager.CheckPasswordAsync(user, model.Password)))
             {
                 return ResponseHandler.BadRequest<AuthDto>("Email or pass is incorrect");
@@ -43,6 +43,9 @@ namespace Tsk.Application.Services
             var JwtSecurityToken = await CreateJwtToken(user);
             authmodel.IdentityNumber = user.IdentityNumber;
             authmodel.Email = user.Email;
+            authmodel.Name = user.FullName;
+            authmodel.PhoneNumber = user.PhoneNumber;
+            authmodel.Age = user.Age;
             authmodel.ExpiresOn = JwtSecurityToken.ValidTo;
             authmodel.Token = new JwtSecurityTokenHandler().WriteToken(JwtSecurityToken);
 
@@ -53,7 +56,7 @@ namespace Tsk.Application.Services
 
         public async Task<Respons<AuthDto>> RegisterAsync(RegisterDto model)
         {
-            var user1 = await _userManager.FindByIdAsync(model.IdentityNumber);
+            var user1 = await _unitOfWork.users.GetByExpressionSingleAsync(x => x.IdentityNumber == model.IdentityNumber);
             if (user1 is not null)
             {
                 if (await _userManager.FindByEmailAsync(model.Email) is not null)
@@ -61,17 +64,17 @@ namespace Tsk.Application.Services
                 if (await _userManager.FindByNameAsync(model.IdentityNumber) is not null)
                     return ResponseHandler.BadRequest<AuthDto>("UserName is already Register");
             }
-            else
-            {
-                return ResponseHandler.BadRequest<AuthDto>("User is already Register");
-            }
-
+           
 
 
             var user = new ApplicationUser
             {
                 IdentityNumber = model.IdentityNumber,
                 Email = model.Email,
+                FullName = model.Name,
+                Age = model.Age,
+                PhoneNumber = model.PhoneNumber,
+                UserName = model.IdentityNumber
             };
 
             var result = user1 == null ?
@@ -100,6 +103,9 @@ namespace Tsk.Application.Services
             {
                 IdentityNumber = user.IdentityNumber,
                 Email = user.Email,
+                Name = user.FullName,
+                PhoneNumber = user.PhoneNumber,
+                Age = user.Age,
                 ExpiresOn = JwtSecurityToken.ValidTo,
                 Roles = new List<string> { "User" },
                 Token = new JwtSecurityTokenHandler().WriteToken(JwtSecurityToken),
