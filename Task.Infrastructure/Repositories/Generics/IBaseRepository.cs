@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
-using Task.Data.Entities;
+using Tsk.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-namespace MS.Infrastructure.Repositories.Generics
+namespace Tsk.Infrastructure.Repositories.Generics
 {
     public interface IBaseRepository<T> where T:class
     {

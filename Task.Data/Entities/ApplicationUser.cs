@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task.Data.Entities
+namespace Tsk.Data.Entities
 {
     public class ApplicationUser : IdentityUser
     {

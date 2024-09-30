@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task.Data.Entities;
-using Task.Infrastructure.Configration;
+using Tsk.Data.Entities;
+using Tsk.Infrastructure.Configration;
 
-namespace Task.Infrastructure.Contexts
+namespace Tsk.Infrastructure.Contexts
 {
     public class Context: IdentityDbContext<ApplicationUser>
     {
@@ -18,15 +18,18 @@ namespace Task.Infrastructure.Contexts
         #endregion
         #region DBset
         public DbSet<Car> Cars { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<UserCar> UserCars { get; set; }
         #endregion
         #region Mehods
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             new CarConfigration().Configure(modelBuilder.Entity<Car>());
             new ApplicationUserConfigration().Configure(modelBuilder.Entity<ApplicationUser>());
+            new UserCarConfigration().Configure(modelBuilder.Entity<UserCar>());
 
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(Context).Assembly);
+         
         } 
         #endregion
 

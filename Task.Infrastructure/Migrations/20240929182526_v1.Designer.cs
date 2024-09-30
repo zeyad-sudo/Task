@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Task.Infrastructure.Contexts;
+using Tsk.Infrastructure.Contexts;
 
 #nullable disable
 
-namespace Task.Infrastructure.Migrations
+namespace Tsk.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240929154339_v1")]
+    [Migration("20240929182526_v1")]
     partial class v1
     {
         /// <inheritdoc />
@@ -158,7 +158,7 @@ namespace Task.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Task.Data.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("Tsk.Data.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -227,7 +227,7 @@ namespace Task.Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Task.Data.Entities.Car", b =>
+            modelBuilder.Entity("Tsk.Data.Entities.Car", b =>
                 {
                     b.Property<int>("PlateNumber")
                         .ValueGeneratedOnAdd()
@@ -272,7 +272,7 @@ namespace Task.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Task.Data.Entities.ApplicationUser", null)
+                    b.HasOne("Tsk.Data.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -281,7 +281,7 @@ namespace Task.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Task.Data.Entities.ApplicationUser", null)
+                    b.HasOne("Tsk.Data.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -296,7 +296,7 @@ namespace Task.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Task.Data.Entities.ApplicationUser", null)
+                    b.HasOne("Tsk.Data.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -305,16 +305,16 @@ namespace Task.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Task.Data.Entities.ApplicationUser", null)
+                    b.HasOne("Tsk.Data.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Task.Data.Entities.Car", b =>
+            modelBuilder.Entity("Tsk.Data.Entities.Car", b =>
                 {
-                    b.HasOne("Task.Data.Entities.ApplicationUser", "ApplicationUser")
+                    b.HasOne("Tsk.Data.Entities.ApplicationUser", "ApplicationUser")
                         .WithMany("Cars")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -323,7 +323,7 @@ namespace Task.Infrastructure.Migrations
                     b.Navigation("ApplicationUser");
                 });
 
-            modelBuilder.Entity("Task.Data.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("Tsk.Data.Entities.ApplicationUser", b =>
                 {
                     b.Navigation("Cars");
                 });

@@ -1,13 +1,13 @@
-﻿using MS.Infrastructure.Repositories.Generics;
+﻿using Tsk.Infrastructure.Repositories.Generics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task.Data.Entities;
-using Task.Infrastructure.Contexts;
+using Tsk.Data.Entities;
+using Tsk.Infrastructure.Contexts;
 
-namespace Task.Infrastructure.Repositories.UnitOfWork
+namespace Tsk.Infrastructure.Repositories.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -15,12 +15,13 @@ namespace Task.Infrastructure.Repositories.UnitOfWork
         public IBaseRepository<Car> cars { get; private set; }
 
         public IBaseRepository<ApplicationUser> users { get; private set; }
-
+        public IBaseRepository<UserCar> userCars { get; private set; }
         public UnitOfWork(Context context)
         {
             _context = context;
             cars = new BaseRepository<Car>(_context);
             users = new BaseRepository<ApplicationUser>(_context);
+            userCars = new BaseRepository<UserCar>(_context);
         }
 
         public async Task<int> CompleteAsync()

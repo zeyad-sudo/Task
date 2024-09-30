@@ -1,5 +1,8 @@
-using Task.Infrastructure;
-namespace Task
+using Tsk.Infrastructure;
+using Tsk.Application;
+using Tsk.Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
+namespace Tsk
 {
     public class Program
     {
@@ -11,6 +14,12 @@ namespace Task
 
             builder.Services.AddControllers();
             builder.Services.Infrastructure_CS(builder.Configuration);
+            builder.Services.Application_CS(builder.Configuration);
+            builder.Services.AddDbContext<Context>(
+                               options =>
+                               {
+                                   options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                               });  
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

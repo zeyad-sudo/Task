@@ -1,4 +1,4 @@
-﻿namespace Task.Data
+﻿namespace Tsk.Data
 {
     public class Data
     {

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task.Data.Entities;
+using Tsk.Data.Entities;
 
-namespace Task.Infrastructure.Configration
+namespace Tsk.Infrastructure.Configration
 {
     public class CarConfigration : IEntityTypeConfiguration<Car>
     {

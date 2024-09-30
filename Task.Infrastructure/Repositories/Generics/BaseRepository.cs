@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task.Infrastructure.Contexts;
+using Tsk.Infrastructure.Contexts;
 using System.Linq.Expressions;
-using Task.Data.Entities;
+using Tsk.Data.Entities;
 
-namespace MS.Infrastructure.Repositories.Generics
+namespace Tsk.Infrastructure.Repositories.Generics
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
