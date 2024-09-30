@@ -12,9 +12,9 @@ namespace Tsk.Application.Interfaces
 {
     public interface IApplicationUserService
     {
-        Task<Respons<UserDto>> GetUserByIDAsync(string ID);
-        Task<Respons<string>> DeleteUserAsync(string ID);
-        Task<Respons<string>> UpdateUserAsync(UserDto model);
+        Task<Respons<UserDto>> GetUserByIDAsync(string ID); //done 
+        Task<Respons<string>> DeleteUserAsync(string ID); //done 
+        Task<Respons<string>> UpdateUserAsync(UserDto model); //done
         Task<Respons<string>> CreateUserAsync(UserDto model);
     }
 }

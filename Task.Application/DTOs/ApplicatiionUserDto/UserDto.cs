@@ -9,9 +9,11 @@ namespace Tsk.Application.DTOs.ApplicatiionUserDto
 {
     public class UserDto
     {
-        public string Id { get; set; }
+
         [Required]
         public string IdentitNumber { get; set; }
+        public string Name { get; set; }
         public string phoneNumber { get; set; }
+        public int Age { get; set; }
     }
 }

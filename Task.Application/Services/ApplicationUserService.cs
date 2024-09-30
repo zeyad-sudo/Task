@@ -27,28 +27,33 @@ namespace Tsk.Application.Services
             var user = new ApplicationUser
             {
                 PhoneNumber = model.phoneNumber,
-                IdentityNumber = model.IdentitNumber
+                IdentityNumber = model.IdentitNumber,
+                Age = model.Age,
+                FullName = model.Name
             };
-            await _userManager.CreateAsync(user);
+            await _unitOfWork.users.AddAsync(user);
             return ResponseHandler.Created("User created successfully");
         }
 
         public async Task<Respons<string>> DeleteUserAsync(string ID)
         {
-            var user = await _userManager.FindByIdAsync(ID);
+            var user=await _unitOfWork.users.GetByExpressionSingleAsync(x => x.IdentityNumber == ID);
             if (user == null) return ResponseHandler.NotFound<string>("User not found");
-            await _userManager.DeleteAsync(user);
+            await _unitOfWork.users.DeleteAsync(user);
+
             return ResponseHandler.Deleted<string>();
         }
 
         public async Task<Respons<UserDto>> GetUserByIDAsync(string ID)
         {
-            var user = await _userManager.FindByIdAsync(ID);
+            var user=await _unitOfWork.users.GetByExpressionSingleAsync(x => x.IdentityNumber == ID);
             if (user == null) return ResponseHandler.NotFound<UserDto>("User not found");
             var userDto = new UserDto
             {
                 IdentitNumber = user.IdentityNumber,
-                phoneNumber = user.PhoneNumber
+                phoneNumber = user.PhoneNumber,
+                Name=user.FullName,
+                Age = user.Age
             };
             return ResponseHandler.Success(userDto);
         }
@@ -57,11 +62,13 @@ namespace Tsk.Application.Services
 
         public async Task<Respons<string>> UpdateUserAsync(UserDto model)
         {
-            var user = await _userManager.FindByIdAsync(model.Id);
+            var user = await _userManager.FindByIdAsync(model.IdentitNumber);
             if (user == null) return ResponseHandler.NotFound<string>("User not found");
             user.PhoneNumber = model.phoneNumber;
             user.IdentityNumber = model.IdentitNumber;
-            await _userManager.UpdateAsync(user);
+            user.Age=model.Age;
+            user.FullName = model.Name;
+            await _unitOfWork.users.UpdateAsync(user);
             return ResponseHandler.Updated("User updated successfully");
         }
     }
