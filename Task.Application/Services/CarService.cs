@@ -24,7 +24,6 @@ namespace Tsk.Application.Services
         {
             await _unitOfWork.cars.AddAsync(new Car
             {
-                PlateNumber = model.PlateNumber,
                 Color = model.Color,
                 Model = model.Model,
                 ManufacturerYear = model.ManufacturerYear,
@@ -60,14 +59,7 @@ namespace Tsk.Application.Services
             });
         }
 
-        public async Task<Respons<string>> UnassignCarFromUserAsync(int carId)
-        {
-            var car = await _unitOfWork.cars.GetByExpressionSingleAsync(x => x.PlateNumber == carId);
-            if (car == null) return ResponseHandler.NotFound<string>("Car not found");
-           // car.ApplicationUserId = null;
-            await _unitOfWork.cars.UpdateAsync(car);
-            return ResponseHandler.Updated("Car unassigned successfully");
-        }
+        
 
         public async Task<Respons<string>> UpdateCarAsync(UpdateCarDto model)
         {

@@ -8,11 +8,11 @@ namespace Tsk.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarConroller : ControllerBase
+    public class CarController : ControllerBase
     {
         private readonly ICarService _carService;
 
-        public CarConroller(ICarService carService)
+        public CarController(ICarService carService)
         {
             _carService = carService;
         }
@@ -47,6 +47,12 @@ namespace Tsk.API.Controllers
                 return BadRequest(ModelState);
             }
             var response = await _carService.UpdateCarAsync(model);
+            return this.CreateResponse(response);
+        }
+        [HttpDelete("{carId}")]
+        public async Task<IActionResult> DeleteCar([FromRoute] int carId)
+        {
+            var response = await _carService.DeleteCarAsync(carId);
             return this.CreateResponse(response);
         }
     }

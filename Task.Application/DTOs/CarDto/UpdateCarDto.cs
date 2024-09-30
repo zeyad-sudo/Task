@@ -13,8 +13,7 @@ namespace Tsk.Application.DTOs.CarDto
         public int PlateNumber { get; set; }
         public string Color { get; set; }
         public string Model { get; set; }
-        public DateOnly ManufacturerYear { get; set; }
+        public DateTime ManufacturerYear { get; set; }
         public string Brand { get; set; }
-        public string ApplicationUserDto { get; set; }
     }
 }
