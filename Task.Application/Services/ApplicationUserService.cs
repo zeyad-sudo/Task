@@ -62,7 +62,7 @@ namespace Tsk.Application.Services
 
         public async Task<Respons<string>> UpdateUserAsync(UserDto model)
         {
-            var user = await _userManager.FindByIdAsync(model.IdentitNumber);
+            var user = await _unitOfWork.users.GetByExpressionSingleAsync(x => x.IdentityNumber == model.IdentitNumber);
             if (user == null) return ResponseHandler.NotFound<string>("User not found");
             user.PhoneNumber = model.phoneNumber;
             user.IdentityNumber = model.IdentitNumber;
